@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0">
+                <a href="{% url 'shop:home' %}">Home</a>
+                <span class="mx-2 mb-0">/</span>
+                <a href="{% url 'shop:user_cart' %}">Cart</a>
+                <span class="mx-2 mb-0">/</span>
+                <strong class="text-black">Checkout</strong></div>
+        </div>
+    </div>
+</div>
+
+<div class="site-section">
+    <div class="container">
+        <form method="post" action="">
+            {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6 mb-5 mb-md-0">
+                <h2 class="h3 mb-3 text-black">Billing Details</h2>
+                <div class="p-3 p-lg-5 border">
+                    <div class="form-group">
+                        <label for="billing_country" class="text-black">Country <span class="text-danger">*</span></label>
+                        {{form.billing_country}}
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="c_billing_address" class="text-black">Address <span class="text-danger">*</span></label>
+                            {{form.billing_address}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{form.billing_address2}}
+                    </div>
+
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label for="id_billing_region" class="text-black">State / County / Region <span class="text-danger">*</span></label>
+                      {{form.billing_region}}
+                    </div>
+                    <div class="col-md-6">
+                      <label for="id_billing_zip" class="text-black">Postal / Zip <span class="text-danger">*</span></label>
+                      {{form.billing_zip}}
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label for="id_billing_user_email" class="text-black">Email Address <span class="text-danger">*</span></label>
+                        {% if billing_address is None %}
+                      <input type="email" class="form-control" id="id_billing_user_email" placeholder="Email"
+                             name="{{form.billing_user_email.name}}" value={{user.email}}>
+                        {% else %}
+                        {{form.billing_user_email}}
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                      <label for="id_billing_user_phone_number" class="text-black">Phone <span class="text-danger">*</span></label>
+                        {% if billing_address is None %}
+                      <input type="text" class="form-control" id="id_billing_user_phone_number" name="{{form.billing_user_phone_number.name}}"
+                             value="{{user.phone_number}}" placeholder="Phone Number" maxlength="15">
+                        {% else %}
+                        {{form.billing_user_phone_number}}
+                        {% endif %}
+                    </div>
+                  </div>
+
+                  <div class="form-group row mb-5">
+                      <div class="col">
+                          {{form.set_default_billing}} <label class="text-black">Set as the default billing address.</label>
+                      </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="id_use_different_shipping_address" class="text-black" data-toggle="collapse"
+                           href="#ship_different_address" role="button" aria-expanded="false" aria-controls="ship_different_address">
+                      {{form.use_different_shipping_address}} Ship To A Different Address?
+                    </label>
+                    <div class="collapse" id="ship_different_address">
+                      <div class="py-2">
+                        <div class="form-group">
+                          <label for="shipping_country" class="text-black">Country <span class="text-danger">*</span></label>
+                          {{form.shipping_country}}
+                        </div>
+
+                        <div class="form-group row">
+                          <div class="col-md-12">
+                            <label for="c_shipping_address" class="text-black">Address <span class="text-danger">*</span></label>
+                            {{form.shipping_address}}
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          {{form.shipping_address2}}
+                        </div>
+
+                        <div class="form-group row">
+                          <div class="col-md-6">
+                            <label for="id_shipping_region" class="text-black">State / County / Region <span class="text-danger">*</span></label>
+                            {{form.shipping_region}}
+                          </div>
+                          <div class="col-md-6">
+                            <label for="id_shipping_zip" class="text-black">Postal / Zip <span class="text-danger">*</span></label>
+                            {{form.shipping_zip}}
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <div class="col-md-6">
+                            <label for="id_shipping_user_email" class="text-black">Email Address <span class="text-danger">*</span></label>
+                              {% if shipping_address is None %}
+                            <input type="email" class="form-control" id="id_shipping_user_email" name="{{form.shipping_user_email.name}}"
+                                   value="{{user.email}}">
+                              {% else %}
+                              {{form.shipping_user_email}}
+                              {% endif %}
+                          </div>
+                          <div class="col-md-6">
+                            <label for="id_shipping_user_phone_number" class="text-black">Phone <span class="text-danger">*</span></label>
+                              {% if shipping_address is None %}
+                            <input type="text" class="form-control" id="id_shipping_user_phone_number" value="{{user.phone_number}}"
+                                   name="{{form.shipping_user_phone_number.name}}" maxlength="15" placeholder="Phone Number">
+                              {% else %}
+                              {{form.shipping_user_phone_number}}
+                              {% endif %}
+                          </div>
+                        </div>
+
+                          <div class="form-group row mb-5">
+                              <div class="col">
+                                  {{form.set_default_shipping}} <label class="text-black">Set as the default shipping address.</label>
+                              </div>
+                          </div>
+
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                      <label for="id_order_notes" class="text-black">Order Notes</label>
+                      {{form.order_notes}}
+                  </div>
+
+                </div>
+            </div>
+
+          <div class="col-md-6">
+
+            <div class="row mb-5">
+              <div class="col-md-12">
+                <h2 class="h3 mb-3 text-black">Your Order</h2>
+                <div class="p-3 p-lg-5 border">
+                  <table class="table table-hover site-block-order-table mb-5">
+                    <thead>
+                    <th>Product</th>
+                    <th>Total</th>
+                    </thead>
+                    <tbody>
+                    {% for product in user_order.items.all %}
+                    <tr>
+                      <td>{{product.item.title|title}} <strong class="mx-2">x</strong> {{product.quantity}}</td>
+                      <td>$250.00</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                      <td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
+                      <td class="text-black">${{user_order.get_sub_total}}</td>
+                    </tr>
+                    <tr>
+                      <td class="text-black font-weight-bold"><strong>Coupon</strong></td>
+                      <td class="text-success">-$0.00</td>
+                    </tr>
+                    <tr class="bg-success">
+                      <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
+                      <td class="text-black font-weight-bold"><strong>${{user_order.get_total}}</strong></td>
+                    </tr>
+                    </tbody>
+                  </table>
+
+                  <!--{% for value, name in form.fields.payment_option.choices %}-->
+                  <!--<div class="border p-3 mb-3">-->
+                    <!--<h4 class="h5 mb-0 d-inline-flex">-->
+                      <!--<input id="{{ name }}" name="payment_option" value="{{ value }}" type="radio" class="" required>-->
+                      <!--<a class="d-block ml-2" data-toggle="collapse" href="#collapse-{{value}}" role="button"-->
+                         <!--aria-expanded="false" aria-controls="collapse-{{value}}">{{ name|title }}</a>-->
+                    <!--</h4>-->
+
+                    <!--<div class="collapse" id="collapse-{{value}}">-->
+                      <!--<div class="py-2">-->
+                        <!--<p class="mb-0">-->
+                          <!--Make your payment directly into our bank account. Please use your Order ID as the payment reference.-->
+                          <!--Your order won’t be shipped until the funds have cleared in our account.-->
+                        <!--</p>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                  <!--{% endfor %}-->
+
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg py-3 btn-block">Place Order</button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+{% endblock content %}

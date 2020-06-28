@@ -1,0 +1,19 @@
+.signup_card {
+    margin: 9% auto;
+    height: 75%;
+    width: 39%;
+}
+.login_card {
+    margin: 4% auto;
+}
+@media (min-width: 1200px) {
+    .signup_card, .login_card {
+        width: 39%;
+    }
+}
+@media (max-width: 940px) {
+    .signup_card, .login_card {
+        width: auto;
+        height: auto;
+    }
+}

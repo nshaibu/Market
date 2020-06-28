@@ -1,0 +1,29 @@
+<nav class="site-navigation text-right text-md-center" role="navigation">
+    <div class="container">
+        <ul class="site-menu js-clone-nav d-none d-md-block">
+            <li class="has-children active">
+                <a href="{% url 'shop:home' %}">Home</a>
+                <ul class="dropdown">
+                    {% for category in categories %}
+                    <li>
+                        <a href="{% url 'shop:category' category_id=category.id %}">
+                            <span>{{category.name|title}}</span>
+                            <!--span class="text-black ml-auto">(2,220)</span-->
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li class="has-children">
+                <a href="{% url 'shop:about_us' %}">About</a>
+                <ul class="dropdown">
+                    <li><a href="{% url 'shop:about_us' %}">About Us</a></li>
+                </ul>
+            </li>
+            <li><a href="{% url 'shop:products' %}">Shop</a></li>
+            <!--li><a href="#">Catalogue</a></li-->
+            <!--li><a href="#">New Arrivals</a></li-->
+            <li><a href="{% url 'shop:contact_us' %}">Contact</a></li>
+        </ul>
+    </div>
+</nav>

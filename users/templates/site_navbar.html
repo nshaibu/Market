@@ -1,0 +1,55 @@
+<div class="site-navbar-top">
+    <div class="container">
+        <div class="row align-items-center">
+
+            <div class="col-6 col-md-4 order-2 order-md-1 site-search-icon text-left">
+                <form action="" class="site-block-top-search">
+                    <span class="icon icon-search2"></span>
+                    <input type="text" class="form-control border-0" placeholder="Search">
+                </form>
+            </div>
+
+            <div class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
+              <div class="site-logo">
+                <a href="/shop" class="js-logo-clone">Market</a>
+              </div>
+            </div>
+
+            <div class="col-6 col-md-4 order-3 order-md-3 text-right">
+              <div class="site-top-icons">
+                <ul>
+                  {% if request.user.is_authenticated %}
+                  <li class="dropdown">
+                    <a href="#" class="badge badge-pill badge-light border d-inline-flex dropdown-toggle"
+                       data-toggle="dropdown" id="userAccount" aria-haspopup="true" aria-expanded="false">
+                      <span class="icon icon-person"></span>
+                      <span class="font-weight-light ml-1" style="line-height: 21px;font-size: 12px;">{{user.get_full_name|title}}</span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="userAccount">
+                      <a class="dropdown-item text-muted" style="font-size:13px;" href="{% url 'users:logout' %}">Logout</a>
+                      <a class="dropdown-item text-muted" style="font-size:13px;" href="{% url 'users:profile' %}">Update Profile</a>
+                      <a class="dropdown-item text-muted" style="font-size:13px;" href="{% url 'password_change' %}">Change Password</a>
+                    </div>
+                  </li>
+                  {% else %}
+                  <li>
+                    <div class="btn-group btn-group-sm rounded-circle" role="group">
+                      <a href="{% url 'users:login' %}" class="btn btn-light text-dark">Sign in</a>
+                      <a href="{% url 'users:sign_up' %}" class="btn btn-info text-dark">Sign up</a>
+                    </div>
+                  </li>
+                  {% endif %}
+                  <li>
+                    <a href="{% url 'shop:user_cart' %}" class="site-cart">
+                      <span class="icon icon-shopping_cart"></span>
+                      <span class="count">{% if user_order %}{{user_order.items.all|length}}{% else %}0{% endif %}</span>
+                    </a>
+                  </li>
+                  <li class="d-inline-block d-md-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle"><span class="icon-menu"></span></a></li>
+                </ul>
+              </div>
+            </div>
+
+        </div>
+    </div>
+</div>

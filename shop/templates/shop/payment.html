@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0">
+                <a href="{% url 'shop:home' %}">Home</a>
+                <span class="mx-2 mb-0">/</span>
+                <a href="{% url 'shop:user_cart' %}">Cart</a>
+                <span class="mx-2 mb-0">/</span>
+                <a href="{% url 'shop:checkout' %}">Checkout</a>
+                <span class="mx-2 mb-0">/</span>
+                <strong class="text-black">Payment</strong></div>
+        </div>
+    </div>
+</div>
+
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mb-5 mb-md-0">
+                <h2 class="h3 mb-3 text-black">Payment</h2>
+                <div class="p-3 p-lg-5 border">
+                    <div class="border p-3 mb-3">
+                        <h4 class="h5 mb-0 d-inline-flex">
+                          <a class="d-block ml-2" data-toggle="collapse" href="#collapse-mobile" role="button"
+                             aria-expanded="false" aria-controls="collapse-mobile">Pay With Mobile Money</a>
+                        </h4>
+
+                        <div class="collapse" id="collapse-mobile">
+                            <div class="py-2">
+                                <p class="mb-0">
+                                    Make your payment directly into our bank account. Please use your Order ID as the payment reference.
+                                    Your order won’t be shipped until the funds have cleared in our account.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border p-3 mb-3">
+                        <h4 class="h5 mb-0 d-inline-flex">
+                            <a class="d-block ml-2" data-toggle="collapse" href="#collapse-card" role="button"
+                               aria-expanded="false" aria-controls="collapse-card">Pay With Card</a>
+                        </h4>
+
+                        <div class="collapse" id="collapse-card">
+                            <div class="py-2">
+                                <form method="post" action="">
+                                    <div class="form-row">
+                                        <div class="form-group col">
+                                            <label class="text-black form-check-label" >Card Number</label>
+                                            <input type="text" name="card_number" class="form-control"
+                                                   placeholder="0000 0000 0000 0000" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label class="text-black form-check-label">Card Holder Name</label>
+                                                <input type="text" name="card_owner" class="form-control" placeholder="eg. Kwasi" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <label class="text-black form-check-label">MM / YY</label>
+                                            <input type="text" name="date" class="form-control" placeholder="MM / YY" required>
+                                        </div>
+                                        <div class="col">
+                                            <label class="text-black form-check-label">CVV</label>
+                                            <input type="text" name="cvv" class="form-control" placeholder="111" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mt-4">
+                                        <button type="submit" class="btn btn-primary btn-sm py-3 btn-block">Pay</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+          <div class="col-md-6">
+
+            <div class="row mb-5">
+              <div class="col-md-12">
+                <h2 class="h3 mb-3 text-black">Your Order</h2>
+                <div class="p-3 p-lg-5 border">
+                  <table class="table table-hover site-block-order-table mb-5">
+                    <thead>
+                    <th>Product</th>
+                    <th>Total</th>
+                    </thead>
+                    <tbody>
+                    {% for product in user_order.items.all %}
+                    <tr>
+                      <td>{{product.item.title|title}} <strong class="mx-2">x</strong> {{product.quantity}}</td>
+                      <td>$250.00</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                      <td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
+                      <td class="text-black">${{user_order.get_sub_total}}</td>
+                    </tr>
+                    <tr>
+                      <td class="text-black font-weight-bold"><strong>Coupon</strong></td>
+                      <td class="text-success">-$0.00</td>
+                    </tr>
+                    <tr class="bg-success">
+                      <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
+                      <td class="text-black font-weight-bold"><strong>${{user_order.get_total}}</strong></td>
+                    </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+{% endblock content %}

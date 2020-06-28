@@ -1,0 +1,7 @@
+asgiref==3.2.3
+Django==3.0.2
+django-countries==5.5
+Pillow==7.0.0
+pytz==2019.3
+six==1.13.0
+sqlparse==0.3.0

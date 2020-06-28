@@ -1,0 +1,104 @@
+{% extends 'users/base.html' %}
+
+{% block content %}
+<div class="card rounded shadow-sm signup_card" > <!--style="width:35%; margin: 5% auto"-->
+    <h5 class="card-header text-center py-4">
+        <strong>Sign up</strong>
+    </h5>
+    <div class="card-body px-lg-5 pt-0">
+        <form class="text-center" style="color: #757575;" method="post" action="">
+            {% csrf_token %}
+            {{form.user_type}}
+            <div class="form-row">
+                <div class="col">
+                    <div class="form-group">
+                        {{form.username.label_tag}}
+                        {{form.username}}
+                        {% for error in form.username.errors %}
+                        <small class="form-text text-danger mb-4">{{error}}</small>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        {{form.gender.label_tag}}
+                        {{form.gender}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col">
+                    <div class="form-group">
+                        {{form.first_name.label_tag}}
+                        {{form.first_name}}
+                        {% for error in form.first_name.errors %}
+                        <small class="form-text text-danger mb-4">{{error}}</small>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        {{form.last_name.label_tag}}
+                        {{form.last_name}}
+                        {% for error in form.last_name.errors %}
+                        <small class="form-text text-danger mb-4">{{error}}</small>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col">
+                    <div class="form-group">
+                        {{form.phone_number.label_tag}}
+                        {{form.phone_number}}
+                        {% for error in form.phone_number.errors %}
+                        <small class="form-text text-danger mb-4">{{error}}</small>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group mt-0">
+                        {{form.email.label_tag}}
+                        {{form.email}}
+                        {% for error in form.email.errors %}
+                        <small class="form-text text-danger mb-4">{{error}}</small>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                {{form.password.label_tag}}
+                {{form.password}}
+                <small id="FormPasswordHelpBlock" class="form-text text-muted mb-4">
+                    {{form.password.help_text}}
+                </small>
+            </div>
+
+            <div class="form-group">
+                {{form.confirm_password.label_tag}}
+                {{form.confirm_password}}
+                {% for error in form.confirm_password.errors %}
+                <small class="form-text text-danger mb-4">{{error}}</small>
+                {% endfor %}
+            </div>
+
+            <button class="btn btn-info rounded btn-block my-4 waves-effect" type="submit">Sign in</button>
+
+            <hr>
+
+            <!-- Terms of service -->
+            <p>By clicking
+                <em>Sign up</em> you agree to our
+                <a href="" target="_blank">terms of service</a>
+            </p>
+
+        </form>
+
+    </div>
+
+</div>
+{% endblock content %}
