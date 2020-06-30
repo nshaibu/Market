@@ -1,4 +1,4 @@
-## Market
+# Market
 
 
 ## Table of contents
@@ -30,9 +30,9 @@ Core Services for Key Entities and Users, including Warehouses &amp; Role Manage
 * To create a normal virtualenv (example _myvenv_) and activate it (see Code below).
 
   ```
-  virtualenv --python=python3 myvenv
+  $ virtualenv --python=python3 myvenv
   
-  source myvenv/bin/activate
+  $ source myvenv/bin/activate
 
   (myvenv) $ pip install -r requirements.txt
 
