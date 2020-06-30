@@ -5,7 +5,6 @@
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
-* [API Documentation](#api-documentation)
 
 
 ## General info
