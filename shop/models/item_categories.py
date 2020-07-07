@@ -20,7 +20,6 @@ class ItemCategory(models.Model):
     @staticmethod
     def get_random_category():
         max_id = ItemCategory.objects.all().aggregate(max_id=Max("id"))['max_id']
-
         while True:
             pk = random.randint(1, max_id)
             category = ItemCategory.objects.filter(pk=pk).first()
